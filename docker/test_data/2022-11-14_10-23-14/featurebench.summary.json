@@ -1,0 +1,22 @@
+{
+ "scalefactor": null,
+ "Current Timestamp (milliseconds)": 1668421395164,
+ "Benchmark Type": "featurebench",
+ "isolation": "TRANSACTION_REPEATABLE_READ",
+ "DBMS Version": "PostgreSQL 11.2-YB-2.17.1.0-b0 on x86_64-pc-linux-gnu, compiled by clang version 15.0.3 (https://github.com/yugabyte/llvm-project.git 0b8d1183745fd3998d8beffeec8cbe99c1b20529), 64-bit",
+ "Goodput (requests/second)": 6.993286455492656,
+ "terminals": "1",
+ "DBMS Type": "YUGABYTE",
+ "Latency Distribution": {
+  "95th Percentile Latency (microseconds)": 277570,
+  "Maximum Latency (microseconds)": 277570,
+  "Median Latency (microseconds)": 277570,
+  "Minimum Latency (microseconds)": 277570,
+  "25th Percentile Latency (microseconds)": 277570,
+  "90th Percentile Latency (microseconds)": 277570,
+  "99th Percentile Latency (microseconds)": 277570,
+  "75th Percentile Latency (microseconds)": 277570,
+  "Average Latency (microseconds)": 277570
+ },
+ "Throughput (requests/second)": 3.496643227746328
+}
