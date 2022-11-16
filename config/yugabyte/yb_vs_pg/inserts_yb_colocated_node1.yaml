@@ -12,9 +12,10 @@ loaderthreads: 4
 terminals: 1
 works:
   work:
-    time: 30
+    time_secs: 120
+    active_terminals: 1
     rate: unlimited
-    warmup: 0
+    warmup: 10
 microbenchmark:
   class: com.oltpbenchmark.benchmarks.featurebench.customworkload.YBDefaultMicroBenchmark
   properties:
