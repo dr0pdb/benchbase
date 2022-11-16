@@ -9,7 +9,7 @@ loaderthreads: 4
 terminals: 1
 works:
   work:
-    time_secs: 120
+    time_secs: 60
     active_terminals: 1
     rate: unlimited
     warmup: 10
@@ -32,7 +32,7 @@ microbenchmark:
             util: PrimaryIntGen
             params:
               - 1
-              - 1000
+              - 1000000
           - name: col_int_
             count: 10
             util: RandomNumber
@@ -62,8 +62,8 @@ microbenchmark:
                 bindings:
                   - util: PrimaryIntGen
                     params:
-                      - 1001
-                      - 2000
+                      - 1000001
+                      - 1001000
                   - util: RandomNumber
                     count: 10
                     params:
@@ -88,8 +88,8 @@ microbenchmark:
                 bindings:
                   - util: PrimaryIntGen
                     params:
-                      - 2001
-                      - 3000
+                      - 1000001
+                      - 1001000
                   - util: RandomNumber
                     count: 10
                     params:
