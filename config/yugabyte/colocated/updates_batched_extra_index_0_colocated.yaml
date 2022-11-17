@@ -1,8 +1,8 @@
 type: YUGABYTE
 driver: com.yugabyte.Driver
-url: jdbc:yugabytedb://172.156.42.143:5433/cyugabyte?sslmode=require&ApplicationName=featurebench&reWriteBatchedInserts=true&load-balance=false
+url: jdbc:yugabytedb://10.150.0.170:5433/cyugabyte?sslmode=disable&ApplicationName=featurebench&reWriteBatchedInserts=true&load-balance=false
 username: yugabyte
-password: Stiwary@benchmarking16
+password: Yugabyte@123
 batchsize: 128
 isolation: TRANSACTION_REPEATABLE_READ
 loaderthreads: 1
@@ -14,9 +14,9 @@ works:
         rate: 1000
         warmup: 0
 microbenchmark:
-    class: com.oltpbenchmark.benchmarks.featurebench.customworkload.YBMicroBenchmarkUpdatesBatched
+    class: com.oltpbenchmark.benchmarks.featurebench.customworkload.YBMicroBenchmarkUpdatesBatchedIndexes0
     properties:
-        setAutoCommit : true
+        setAutoCommit : false
         create :
             - DROP PROCEDURE if exists insert_demo;
             - CREATE PROCEDURE insert_demo(_numRows int)
