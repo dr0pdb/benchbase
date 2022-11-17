@@ -14,6 +14,8 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
                            .YBMicroBenchmarkInsertsBatchedIndexes0.class);
 
+  private String values = "";
+
   public YBMicroBenchmarkInsertsBatchedIndexes0(
       HierarchicalConfiguration<ImmutableNode> config) {
     super(config);
@@ -30,10 +32,8 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
     PreparedStatement insert_stmt = conn.prepareStatement(insertStmt);
     insert_stmt.execute();
     insert_stmt.close();
-  }
 
-  public void executeOnce(Connection conn) throws SQLException {
-    String values = "";
+    values = "";
     for (int i = 101; i <= 1000; i++) {
       values += "(";
       for (int col = 1; col <= 11; col++) {
@@ -47,7 +47,9 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
         values += ",";
       }
     }
+  }
 
+  public void executeOnce(Connection conn) throws SQLException {
     String insertStmt1 = String.format("insert into demo values %s;", values);
     Statement stmtObj = conn.createStatement();
     stmtObj.execute(insertStmt1);
