@@ -1,0 +1,85 @@
+type: POSTGRES
+driver: org.postgresql.Driver
+url: jdbc:yugabytedb://10.150.0.170:5433/postgres?sslmode=disable&ApplicationName=featurebench&reWriteBatchedInserts=true
+username: postgres
+password: Yugabyte@123
+batchsize: 128
+isolation: TRANSACTION_REPEATABLE_READ
+loaderthreads: 1
+terminals: 1
+works:
+    work:
+        time: 5
+        active_terminals: 1
+        rate: 1000
+        warmup: 0
+microbenchmark:
+    class: com.oltpbenchmark.benchmarks.featurebench.customworkload.YBDefaultMicroBenchmark
+    properties:
+        setAutoCommit : true
+        create :
+            - drop table if exists demo;
+            - drop table if exists demo_indexes_1;
+            - drop table if exists demo_indexes_2;
+            - drop table if exists demo_indexes_3;
+            - drop table if exists demo_indexes_5;
+            - drop table if exists demo_indexes_10;
+
+            - drop index if exists demo_indexes_1_idx1;
+
+            - drop index if exists demo_indexes_2_idx1;
+            - drop index if exists demo_indexes_2_idx2;
+
+            - drop index if exists demo_indexes_3_idx1;
+            - drop index if exists demo_indexes_3_idx2;
+            - drop index if exists demo_indexes_3_idx3;
+
+            - drop index if exists demo_indexes_5_idx1;
+            - drop index if exists demo_indexes_5_idx2;
+            - drop index if exists demo_indexes_5_idx3;
+            - drop index if exists demo_indexes_5_idx4;
+            - drop index if exists demo_indexes_5_idx5;
+
+            - drop index if exists demo_indexes_10_idx1;
+            - drop index if exists demo_indexes_10_idx2;
+            - drop index if exists demo_indexes_10_idx3;
+            - drop index if exists demo_indexes_10_idx4;
+            - drop index if exists demo_indexes_10_idx5;
+            - drop index if exists demo_indexes_10_idx6;
+            - drop index if exists demo_indexes_10_idx7;
+            - drop index if exists demo_indexes_10_idx8;
+            - drop index if exists demo_indexes_10_idx9;
+            - drop index if exists demo_indexes_10_idx10;
+
+            - create table demo (id int not null primary key, col1 int not null, col2 int, col3 int, col4 int, col5 int, col6 int, col7 int, col8 int, col9 int, col10 int);
+            - create table demo_indexes_1 (id int not null primary key, col1 int not null, col2 int, col3 int, col4 int, col5 int, col6 int, col7 int, col8 int, col9 int, col10 int);
+            - create table demo_indexes_2 (id int not null primary key, col1 int not null, col2 int, col3 int, col4 int, col5 int, col6 int, col7 int, col8 int, col9 int, col10 int);
+            - create table demo_indexes_3 (id int not null primary key, col1 int not null, col2 int, col3 int, col4 int, col5 int, col6 int, col7 int, col8 int, col9 int, col10 int);
+            - create table demo_indexes_5 (id int not null primary key, col1 int not null, col2 int, col3 int, col4 int, col5 int, col6 int, col7 int, col8 int, col9 int, col10 int);
+            - create table demo_indexes_10 (id int not null primary key, col1 int not null, col2 int, col3 int, col4 int, col5 int, col6 int, col7 int, col8 int, col9 int, col10 int);
+
+            - create unique index demo_indexes_1_idx1 on demo_indexes_1(col1);
+
+            - create unique index demo_indexes_2_idx1 on demo_indexes_2(col1);
+            - create unique index demo_indexes_2_idx2 on demo_indexes_2(col2);
+
+            - create unique index demo_indexes_3_idx1 on demo_indexes_3(col1);
+            - create unique index demo_indexes_3_idx2 on demo_indexes_3(col2);
+            - create unique index demo_indexes_3_idx3 on demo_indexes_3(col3);
+
+            - create unique index demo_indexes_5_idx1 on demo_indexes_5(col1);
+            - create unique index demo_indexes_5_idx2 on demo_indexes_5(col2);
+            - create unique index demo_indexes_5_idx3 on demo_indexes_5(col3);
+            - create unique index demo_indexes_5_idx4 on demo_indexes_5(col4);
+            - create unique index demo_indexes_5_idx5 on demo_indexes_5(col5);
+
+            - create unique index demo_indexes_10_idx1 on demo_indexes_10(col1);
+            - create unique index demo_indexes_10_idx2 on demo_indexes_10(col2);
+            - create unique index demo_indexes_10_idx3 on demo_indexes_10(col3);
+            - create unique index demo_indexes_10_idx4 on demo_indexes_10(col4);
+            - create unique index demo_indexes_10_idx5 on demo_indexes_10(col5);
+            - create unique index demo_indexes_10_idx6 on demo_indexes_10(col6);
+            - create unique index demo_indexes_10_idx7 on demo_indexes_10(col7);
+            - create unique index demo_indexes_10_idx8 on demo_indexes_10(col8);
+            - create unique index demo_indexes_10_idx9 on demo_indexes_10(col9);
+            - create unique index demo_indexes_10_idx10 on demo_indexes_10(col10);
