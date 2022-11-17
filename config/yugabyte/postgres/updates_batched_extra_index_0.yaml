@@ -1,6 +1,6 @@
 type: POSTGRES
 driver: org.postgresql.Driver
-url: jdbc:yugabytedb://10.150.0.170:5433/postgres?sslmode=disable&ApplicationName=featurebench&reWriteBatchedInserts=true
+url: jdbc:postgresql://10.150.0.170:5432/postgres?sslmode=disable&ApplicationName=featurebench&reWriteBatchedInserts=true
 username: postgres
 password: Yugabyte@123
 batchsize: 128
