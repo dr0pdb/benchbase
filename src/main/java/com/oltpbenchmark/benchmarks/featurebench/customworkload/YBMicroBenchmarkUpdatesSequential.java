@@ -13,7 +13,7 @@ public class YBMicroBenchmarkUpdatesSequential extends YBMicroBenchmark {
   public final static Logger LOG =
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
                            .YBMicroBenchmarkUpdatesSequential.class);
-  private static final int NUM_ROWS = 10000;
+  private static final int NUM_ROWS = 1000;
 
   public YBMicroBenchmarkUpdatesSequential(
       HierarchicalConfiguration<ImmutableNode> config) {
