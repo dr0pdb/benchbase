@@ -9,13 +9,13 @@ import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.apache.commons.configuration2.tree.ImmutableNode;
 import org.apache.log4j.Logger;
 
-public class YBMicroBenchmarkDeletesBatchedIndexes1 extends YBMicroBenchmark {
+public class YBMicroBenchmarkDeletesSequentialIndexes1ExpTxn extends YBMicroBenchmark {
   public final static Logger LOG =
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
-                           .YBMicroBenchmarkDeletesBatchedIndexes1.class);
+                           .YBMicroBenchmarkDeletesSequentialIndexes1ExpTxn.class);
   private static final int NUM_ROWS = 1100;
 
-  public YBMicroBenchmarkDeletesBatchedIndexes1(
+  public YBMicroBenchmarkDeletesSequentialIndexes1ExpTxn(
       HierarchicalConfiguration<ImmutableNode> config) {
     super(config);
     this.loadOnceImplemented = true;
@@ -33,20 +33,11 @@ public class YBMicroBenchmarkDeletesBatchedIndexes1 extends YBMicroBenchmark {
   }
 
   public void executeOnce(Connection conn) throws SQLException {
-    String inClause = "(";
-    for (int i = 101; i <= NUM_ROWS; i++) {
-      inClause += String.format("%d", i);
-      if (i < NUM_ROWS) {
-        inClause += ",";
-      }
-    }
-    inClause += ")";
-
-    // Delete the last 900 rows.
-    String batchedDeleteStatement =
-        String.format("delete from demo_indexes_1 where id in %s", inClause);
     Statement stmtObj = conn.createStatement();
-    stmtObj.execute(batchedDeleteStatement);
+    // Delete last 900 rows sequentially.
+    for (int id = 101; id <= NUM_ROWS; id++) {
+      stmtObj.execute(String.format("begin; delete from demo_indexes_1 where id = %d; commit;", id));
+    }
     stmtObj.close();
   }
 }

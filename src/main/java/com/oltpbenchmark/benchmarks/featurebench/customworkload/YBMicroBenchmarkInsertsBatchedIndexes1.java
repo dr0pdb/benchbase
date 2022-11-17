@@ -33,7 +33,7 @@ public class YBMicroBenchmarkInsertsBatchedIndexes1 extends YBMicroBenchmark {
 
   public void executeOnce(Connection conn) throws SQLException {
     String values = "";
-    for (int i = 101; i <= 1000; i++) {
+    for (int i = 101; i <= 1100; i++) {
       values += "(";
       for (int col = 1; col <= 11; col++) {
         values += String.format("%d", i);
@@ -42,7 +42,7 @@ public class YBMicroBenchmarkInsertsBatchedIndexes1 extends YBMicroBenchmark {
         }
       }
       values += ")";
-      if (i < 1000) {
+      if (i < 1100) {
         values += ",";
       }
     }

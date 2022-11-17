@@ -13,7 +13,7 @@ public class YBMicroBenchmarkDeletesSequentialIndexes1 extends YBMicroBenchmark 
   public final static Logger LOG =
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
                            .YBMicroBenchmarkDeletesSequentialIndexes1.class);
-  private static final int NUM_ROWS = 1000;
+  private static final int NUM_ROWS = 1100;
 
   public YBMicroBenchmarkDeletesSequentialIndexes1(
       HierarchicalConfiguration<ImmutableNode> config) {

@@ -13,7 +13,7 @@ public class YBMicroBenchmarkDeletesBatchedIndexes10 extends YBMicroBenchmark {
   public final static Logger LOG =
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
                            .YBMicroBenchmarkDeletesBatchedIndexes10.class);
-  private static final int NUM_ROWS = 1000;
+  private static final int NUM_ROWS = 1100;
 
   public YBMicroBenchmarkDeletesBatchedIndexes10(
       HierarchicalConfiguration<ImmutableNode> config) {

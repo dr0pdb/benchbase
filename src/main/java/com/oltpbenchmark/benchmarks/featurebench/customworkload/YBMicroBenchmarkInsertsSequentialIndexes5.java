@@ -34,7 +34,7 @@ public class YBMicroBenchmarkInsertsSequentialIndexes5 extends YBMicroBenchmark 
 
   public void executeOnce(Connection conn) throws SQLException {
     Statement stmtObj = conn.createStatement();
-    for (int id = 101; id <= 1000; id++) {
+    for (int id = 101; id <= 1100; id++) {
       String query = String.format(
           "insert into demo_indexes_5 values (%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
           id, id, id, id, id, id, id, id, id, id, id);

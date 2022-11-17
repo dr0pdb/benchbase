@@ -9,21 +9,21 @@ import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.apache.commons.configuration2.tree.ImmutableNode;
 import org.apache.log4j.Logger;
 
-public class YBMicroBenchmarkDeletesBatchedIndexes1 extends YBMicroBenchmark {
+public class YBMicroBenchmarkInsertsBatchedIndexes10ExpTxn extends YBMicroBenchmark {
   public final static Logger LOG =
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
-                           .YBMicroBenchmarkDeletesBatchedIndexes1.class);
-  private static final int NUM_ROWS = 1100;
+                           .YBMicroBenchmarkInsertsBatchedIndexes10ExpTxn.class);
 
-  public YBMicroBenchmarkDeletesBatchedIndexes1(
+  public YBMicroBenchmarkInsertsBatchedIndexes10ExpTxn(
       HierarchicalConfiguration<ImmutableNode> config) {
     super(config);
     this.loadOnceImplemented = true;
+    this.executeOnceImplemented = true;
   }
 
   public void loadOnce(Connection conn) throws SQLException {
-    String insertStmt = String.format("call insert_demo(%d);", NUM_ROWS);
-    String DeleteStmt = String.format("delete from demo_indexes_1");
+    String insertStmt = "call insert_demo(100);";
+    String DeleteStmt = String.format("delete from demo_indexes_10");
     PreparedStatement delete_stmt = conn.prepareStatement(DeleteStmt);
     delete_stmt.execute();
     delete_stmt.close();
@@ -33,20 +33,24 @@ public class YBMicroBenchmarkDeletesBatchedIndexes1 extends YBMicroBenchmark {
   }
 
   public void executeOnce(Connection conn) throws SQLException {
-    String inClause = "(";
-    for (int i = 101; i <= NUM_ROWS; i++) {
-      inClause += String.format("%d", i);
-      if (i < NUM_ROWS) {
-        inClause += ",";
+    String values = "";
+    for (int i = 101; i <= 1100; i++) {
+      values += "(";
+      for (int col = 1; col <= 11; col++) {
+        values += String.format("%d", i);
+        if (col < 11) {
+          values += ",";
+        }
+      }
+      values += ")";
+      if (i < 1100) {
+        values += ",";
       }
     }
-    inClause += ")";
 
-    // Delete the last 900 rows.
-    String batchedDeleteStatement =
-        String.format("delete from demo_indexes_1 where id in %s", inClause);
+    String insertStmt1 = String.format("begin; insert into demo_indexes_10 values %s; commit;", values);
     Statement stmtObj = conn.createStatement();
-    stmtObj.execute(batchedDeleteStatement);
+    stmtObj.execute(insertStmt1);
     stmtObj.close();
   }
 }
