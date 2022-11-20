@@ -16,7 +16,7 @@ works:
 microbenchmark:
     class: com.oltpbenchmark.benchmarks.featurebench.customworkload.YBMicroBenchmarkUpdatesSequentialIndexes2ExpTxn
     properties:
-        setAutoCommit : false
+        setAutoCommit : true
         create :
             - DROP PROCEDURE if exists insert_demo;
             - CREATE PROCEDURE insert_demo(_numRows int)
