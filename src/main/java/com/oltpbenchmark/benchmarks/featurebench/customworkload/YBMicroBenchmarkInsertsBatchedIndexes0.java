@@ -55,7 +55,7 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
     long timeBeforeExecute = System.currentTimeMillis();
     stmtObj.execute(insertStmt1);
     long timeAfterExecute = System.currentTimeMillis();
-    System.out.printf("The time taken for execute is: %d",
+    System.out.printf("\nEXECUTION_TIME_FROM_JAVA: %d\n",
                       timeAfterExecute - timeBeforeExecute);
     stmtObj.close();
   }
