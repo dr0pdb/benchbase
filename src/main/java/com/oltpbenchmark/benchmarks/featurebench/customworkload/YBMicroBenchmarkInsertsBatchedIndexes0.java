@@ -15,7 +15,6 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
                            .YBMicroBenchmarkInsertsBatchedIndexes0.class);
 
   private String values;
-  private Statement stmtObj;
 
   public YBMicroBenchmarkInsertsBatchedIndexes0(
       HierarchicalConfiguration<ImmutableNode> config) {
@@ -48,13 +47,16 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
     PreparedStatement insert_stmt = conn.prepareStatement(insertStmt);
     insert_stmt.execute();
     insert_stmt.close();
-
-    stmtObj = conn.createStatement();
   }
 
   public void executeOnce(Connection conn) throws SQLException {
     String insertStmt1 = String.format("insert into demo values %s;", values);
+    Statement stmtObj = conn.createStatement();
+    long timeBeforeExecute = System.currentTimeMillis();
     stmtObj.execute(insertStmt1);
+    long timeAfterExecute = System.currentTimeMillis();
+    System.out.printf("The time taken for execute is: %d",
+                      timeAfterExecute - timeBeforeExecute);
     stmtObj.close();
   }
 }
