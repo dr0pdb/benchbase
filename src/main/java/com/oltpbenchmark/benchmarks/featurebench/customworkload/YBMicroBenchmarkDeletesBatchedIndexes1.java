@@ -14,11 +14,21 @@ public class YBMicroBenchmarkDeletesBatchedIndexes1 extends YBMicroBenchmark {
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
                            .YBMicroBenchmarkDeletesBatchedIndexes1.class);
   private static final int NUM_ROWS = 1100;
+  private String inClause;
 
   public YBMicroBenchmarkDeletesBatchedIndexes1(
       HierarchicalConfiguration<ImmutableNode> config) {
     super(config);
     this.loadOnceImplemented = true;
+
+    inClause = "(";
+    for (int i = 101; i <= NUM_ROWS; i++) {
+      inClause += String.format("%d", i);
+      if (i < NUM_ROWS) {
+        inClause += ",";
+      }
+    }
+    inClause += ")";
   }
 
   public void loadOnce(Connection conn) throws SQLException {
@@ -33,16 +43,6 @@ public class YBMicroBenchmarkDeletesBatchedIndexes1 extends YBMicroBenchmark {
   }
 
   public void executeOnce(Connection conn) throws SQLException {
-    String inClause = "(";
-    for (int i = 101; i <= NUM_ROWS; i++) {
-      inClause += String.format("%d", i);
-      if (i < NUM_ROWS) {
-        inClause += ",";
-      }
-    }
-    inClause += ")";
-
-    // Delete the last 900 rows.
     String batchedDeleteStatement =
         String.format("delete from demo_indexes_1 where id in %s", inClause);
     Statement stmtObj = conn.createStatement();

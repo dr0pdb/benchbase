@@ -34,7 +34,6 @@ public class YBMicroBenchmarkDeletesSequentialIndexes1 extends YBMicroBenchmark 
 
   public void executeOnce(Connection conn) throws SQLException {
     Statement stmtObj = conn.createStatement();
-    // Delete last 900 rows sequentially.
     for (int id = 101; id <= NUM_ROWS; id++) {
       stmtObj.execute(String.format("delete from demo_indexes_1 where id = %d;", id));
     }

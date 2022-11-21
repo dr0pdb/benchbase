@@ -13,11 +13,27 @@ public class YBMicroBenchmarkInsertsBatchedIndexes1 extends YBMicroBenchmark {
   public final static Logger LOG =
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
                            .YBMicroBenchmarkInsertsBatchedIndexes1.class);
+  private String values;
 
   public YBMicroBenchmarkInsertsBatchedIndexes1(
       HierarchicalConfiguration<ImmutableNode> config) {
     super(config);
     this.loadOnceImplemented = true;
+
+    values = "";
+    for (int i = 101; i <= 1100; i++) {
+      values += "(";
+      for (int col = 1; col <= 11; col++) {
+        values += String.format("%d", i);
+        if (col < 11) {
+          values += ",";
+        }
+      }
+      values += ")";
+      if (i < 1100) {
+        values += ",";
+      }
+    }
   }
 
   public void loadOnce(Connection conn) throws SQLException {
@@ -32,22 +48,8 @@ public class YBMicroBenchmarkInsertsBatchedIndexes1 extends YBMicroBenchmark {
   }
 
   public void executeOnce(Connection conn) throws SQLException {
-    String values = "";
-    for (int i = 101; i <= 1100; i++) {
-      values += "(";
-      for (int col = 1; col <= 11; col++) {
-        values += String.format("%d", i);
-        if (col < 11) {
-          values += ",";
-        }
-      }
-      values += ")";
-      if (i < 1100) {
-        values += ",";
-      }
-    }
-
-    String insertStmt1 = String.format("insert into demo_indexes_1 values %s;", values);
+    String insertStmt1 =
+        String.format("insert into demo_indexes_1 values %s;", values);
     Statement stmtObj = conn.createStatement();
     stmtObj.execute(insertStmt1);
     stmtObj.close();

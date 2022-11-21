@@ -34,7 +34,6 @@ public class YBMicroBenchmarkUpdatesSequentialIndexes5 extends YBMicroBenchmark 
 
   public void executeOnce(Connection conn) throws SQLException {
     Statement stmtObj = conn.createStatement();
-    // Update last 900 rows sequentially.
     for (int id = 101; id <= NUM_ROWS; id++) {
       stmtObj.execute(String.format(
           "update demo_indexes_5 set col1 = col1 + 10000, col2 = col2 + 10000, col3 = col3 + 10000, col4 = col4 + 10000, col5 = col5 + 10000, col6 = col6 + 10000, col7 = col7 + 10000, col8 = col8 + 10000, col9 = col9 + 10000, col10 = col10 + 10000 where id = %d;",
