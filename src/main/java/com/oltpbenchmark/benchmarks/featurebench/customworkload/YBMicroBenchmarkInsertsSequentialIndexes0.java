@@ -34,12 +34,18 @@ public class YBMicroBenchmarkInsertsSequentialIndexes0 extends YBMicroBenchmark 
 
   public void executeOnce(Connection conn) throws SQLException {
     Statement stmtObj = conn.createStatement();
+
+    long timeBeforeExecute = System.currentTimeMillis();
     for (int id = 101; id <= 1100; id++) {
       String query = String.format(
           "insert into demo values (%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
           id, id, id, id, id, id, id, id, id, id, id);
       stmtObj.execute(query);
     }
+    long timeAfterExecute = System.currentTimeMillis();
+    System.out.printf("\nEXECUTION_TIME_FROM_JAVA: %d\n",
+                      timeAfterExecute - timeBeforeExecute);
+
     stmtObj.close();
   }
 }
