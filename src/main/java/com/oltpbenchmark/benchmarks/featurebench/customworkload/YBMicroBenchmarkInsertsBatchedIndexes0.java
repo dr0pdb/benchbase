@@ -14,26 +14,16 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
       Logger.getLogger(com.oltpbenchmark.benchmarks.featurebench.customworkload
                            .YBMicroBenchmarkInsertsBatchedIndexes0.class);
 
+  private String values;
+  private Statement stmtObj;
+
   public YBMicroBenchmarkInsertsBatchedIndexes0(
       HierarchicalConfiguration<ImmutableNode> config) {
     super(config);
     this.loadOnceImplemented = true;
     this.executeOnceImplemented = true;
-  }
 
-  public void loadOnce(Connection conn) throws SQLException {
-    String insertStmt = "call insert_demo(100);";
-    String DeleteStmt = String.format("delete from demo");
-    PreparedStatement delete_stmt = conn.prepareStatement(DeleteStmt);
-    delete_stmt.execute();
-    delete_stmt.close();
-    PreparedStatement insert_stmt = conn.prepareStatement(insertStmt);
-    insert_stmt.execute();
-    insert_stmt.close();
-  }
-
-  public void executeOnce(Connection conn) throws SQLException {
-    String values = "";
+    values = "";
     for (int i = 101; i <= 1100; i++) {
       values += "(";
       for (int col = 1; col <= 11; col++) {
@@ -47,9 +37,23 @@ public class YBMicroBenchmarkInsertsBatchedIndexes0 extends YBMicroBenchmark {
         values += ",";
       }
     }
+  }
 
+  public void loadOnce(Connection conn) throws SQLException {
+    String insertStmt = "call insert_demo(100);";
+    String DeleteStmt = String.format("delete from demo");
+    PreparedStatement delete_stmt = conn.prepareStatement(DeleteStmt);
+    delete_stmt.execute();
+    delete_stmt.close();
+    PreparedStatement insert_stmt = conn.prepareStatement(insertStmt);
+    insert_stmt.execute();
+    insert_stmt.close();
+
+    stmtObj = conn.createStatement();
+  }
+
+  public void executeOnce(Connection conn) throws SQLException {
     String insertStmt1 = String.format("insert into demo values %s;", values);
-    Statement stmtObj = conn.createStatement();
     stmtObj.execute(insertStmt1);
     stmtObj.close();
   }
